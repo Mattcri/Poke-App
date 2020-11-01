@@ -1,13 +1,13 @@
 <template>
   <nav>
-    <v-toolbar app height="70px">
+    <v-app-bar app height="70px">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="indigo--text " />
       <v-container>
         <!-- <v-toolbar-items> -->
           <v-img src="../assets/pokemon.svg" width="130px" height="65px" contain transition="scale-transition" />
         <!-- </v-toolbar-items> -->
       </v-container>
-    </v-toolbar>
+    </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app temporary color="grey lighten-3">
       <v-list-item>

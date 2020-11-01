@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <nav-bar />
-    <v-content class="grey lighten-5">
+    <v-main class="grey lighten-5">
       <router-view />
-    </v-content>
+    </v-main>
     <cp-footer />
   </v-app>
 </template>
