@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="4" lg="3" v-for="(pokemon, index) in pokemons" :key="'poke'+index">
+      <v-col cols="12" md="3" lg="4" v-for="(pokemon, index) in pokemons" :key="'poke'+index">
 
-        <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+        <v-card :loading="loading" outlined shaped class="mx-auto my-5 px-3" :max-width="270" >
           <template slot="progress">
             <v-progress-linear
               color="deep-purple"
@@ -13,11 +13,14 @@
           </template>
 
           <v-img
-            height="250"
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            height="230"
+            class="blue-grey lighten-5 rounded-circle mt-4"
+            contain
+            :src="pokeImage + pokemon.id + '.png'"
+            alt="Pokemón"
           ></v-img>
 
-          <v-card-title class="justify-center">{{ pokemon.name }}</v-card-title>
+          <v-card-title class="justify-center" :class="'capitalize'">{{ pokemon.name }}</v-card-title>
 
           <v-divider class="mx-4 mb-3"></v-divider>
 
@@ -27,6 +30,9 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+        <div id="scroll-trigger" ref="infinitescrolltrigger">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
 
       </v-col>
     </v-row>
@@ -39,9 +45,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data: () => ({
     loading: false,
-    // API: 'https://pokeapi.co/api/v2/pokemon/',
-    // nextUrl: '',
-    // pokemons: []
+    pokeImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
   }),
   methods: {
     ...mapActions(['getPokemons']),
@@ -54,23 +58,6 @@ export default {
           }, 2000)
       }
     },
-    // getData () {
-    //   let req = new Request(this.API);
-    //   fetch(req)
-    //     .then(res => {
-    //       if(res.status === 200)
-    //         return res.json();
-    //     })
-    //     .then(data => {
-    //       this.nextUrl = data.next;
-    //       data.results.forEach(item => {
-    //         this.pokemons.push(item);
-    //       });
-    //     })
-    //     .catch(rej => {
-    //       console.log(rej)
-    //     })
-    // }
 
 
   },
@@ -79,10 +66,12 @@ export default {
   },
   created() {
     this.getPokemons()
-    // this.getData()
   }
 };
 </script>
 
 <style>
+  .capitalize {
+    text-transform: capitalize;
+  }
 </style>

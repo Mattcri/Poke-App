@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const pokeImage = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 const API = 'https://pokeapi.co/api/v2/pokemon/'
 
 export default new Vuex.Store({
@@ -26,7 +25,9 @@ export default new Vuex.Store({
         })
         .then( data => {
           state.nextUrl = data.next
-          data.results.forEach(pokemon => {
+          data.results.map(pokemon => {
+            pokemon.id = pokemon.url.split('/')
+              .filter(part => {return !!part}).pop()
             state.pokemons.push(pokemon)
           })
           commit('GET_POKEMON')
