@@ -25,16 +25,15 @@
           <v-divider class="mx-4 mb-3"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail(index)">
+            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail">
               Reserve
             </v-btn>
           </v-card-actions>
         </v-card>
-        <div id="scroll-trigger" ref="infinitescrolltrigger">
-          <i class="fas fa-spinner fa-spin"></i>
-        </div>
+        
 
       </v-col>
+        <infinite-loading @infinite="newData"></infinite-loading>
     </v-row>
   </v-container>
 </template>
@@ -49,20 +48,19 @@ export default {
   }),
   methods: {
     ...mapActions(['getPokemons']),
-    clickDetail (index) {
-      if(index) {
+    clickDetail () {
+      // if(index) {
         this.loading = true
         setTimeout(() => {
           this.loading = false
           //llevar a ruta
           }, 2000)
-      }
+      // }
     },
-
 
   },
   computed: {
-    ...mapState(['pokemons'])
+    ...mapState(['pokemons']),
   },
   created() {
     this.getPokemons()
