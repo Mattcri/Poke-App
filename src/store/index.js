@@ -5,16 +5,20 @@ import InfiniteLoading from 'vue-infinite-loading';
 Vue.use(Vuex)
 Vue.use(InfiniteLoading)
 
-const API = 'https://pokeapi.co/api/v2/pokemon?limit=1050/'
+const API = 'https://pokeapi.co/api/v2/generation/1/'
 
 export default new Vuex.Store({
   state: {
     pokemons: [],
+    region: undefined
   },
   mutations: {
     GET_POKEMONS (state) {
       state.pokemons
     },
+    REGION (state) {
+      state.region
+    }
     
   },
   actions: {
@@ -25,13 +29,12 @@ export default new Vuex.Store({
             return res.json()
         })
         .then( data => {
-          data.results.map(pokemon => {
+          data.pokemon_species.forEach(pokemon => {
             pokemon.id = pokemon.url.split('/')
               .filter(part => {return !!part}).pop()
             state.pokemons.push(pokemon)
           })
           commit('GET_POKEMONS')
-
         })
         .catch( error => console.log(error) )
     },

@@ -4,10 +4,23 @@
       <grid-loader :loading="spinner" class="spinner__element" :color="'#68d391'" :size="60" />
     </div>
 
-    <cp-search v-if="!spinner" @filtered="pokeFilter" class="mt-5" />
+    <!-- <cp-search v-if="!spinner" @filtered="pokeFilter" class="mt-5" /> -->
+    <v-row v-if="!spinner">
+      <v-col cols="12" md="9">
+        <v-text-field
+          v-model="search"
+          label="Búsca tu Pokémon"
+          placeholder="Pikachu & 5"
+          filled
+          rounded
+          dense
+        >
+        </v-text-field>
+      </v-col>
+    </v-row>
 
     <v-row v-if="!spinner">
-      <v-col cols="12" md="3" lg="4" v-for="(pokemon, index) in pokeFilter" :key="'poke'+index">
+      <v-col cols="12" md="3" lg="4" v-for="(pokemon, index) in pokeFilter" :key="index">
 
         <v-card :loading="loading" outlined shaped class="mx-auto px-3" :max-width="270" >
           <template slot="progress">
@@ -32,7 +45,7 @@
           <v-divider class="mx-4 mb-3"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail">
+            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail(index)">
               Reserve
             </v-btn>
           </v-card-actions>
@@ -46,37 +59,48 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import CpSearch from '@/components/CpSearch.vue'
+// import CpSearch from '@/components/CpSearch.vue'
 
 export default {
   name: 'PokeList',
-  components: { CpSearch },
+  // components: { CpSearch },
   // props: {
   //   search: ''
   // }
   data: () => ({
     loading: false,
     spinner: false,
-    searchPoke: null,
+    search: '',
     pokeImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
   }),
   methods: {
     ...mapActions(['getPokemons']),
-    clickDetail () {
-        this.loading = true
-        setTimeout(() => {
-          this.loading = false
-          //llevar a ruta
-          }, 2000)
+    clickDetail (data) {
+        // this.loading = true
+        // if (data) {
+        //   setTimeout(() => {
+        //     this.loading = false
+        //     //llevar a ruta
+        //   }, 2000)
+
+        //   console.log(data)
+        // }
+      
     },
 
   },
   computed: {
     ...mapState(['pokemons']),
-    async pokeFilter (data) {
-      this.searchPoke = await data
+    // async pokeFilter (data) {
+    //   this.searchPoke = await data
+    //   return this.pokemons.filter(poke => {
+    //     return poke.results.name.toLowerCase().includes(this.searchPoke.toLowerCase())
+    //   })
+    // }
+    pokeFilter () {
       return this.pokemons.filter(poke => {
-        return poke.results.name.toLowerCase().includes(this.searchPoke.toLowerCase())
+        return poke.name.toLowerCase().includes(this.search.toLowerCase()) ||
+               poke.id.includes(this.search)
       })
     }
   },

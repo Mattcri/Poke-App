@@ -3,7 +3,6 @@
     <v-col cols="12" md="9">
       <v-text-field
         v-model="search"
-        
         label="Búsca tu Pokémon"
         placeholder="Pikachu & 5"
         filled
