@@ -6,7 +6,7 @@
 
     <!-- <cp-search v-if="!spinner" @filtered="search=$event" class="mt-5" />
     <h2>hola:{{search}}</h2> -->
-    <h2>{{ pokeRegion }}</h2>
+    <h2 v-if="!spinner" :class="'capitalize'">{{ pokeRegion.region }}</h2>
    
     <v-row v-if="!spinner">
       <v-col cols="12" md="9">
@@ -65,7 +65,7 @@ export default {
     pokeImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
   }),
   methods: {
-    ...mapActions(['getPokemons', 'region']),
+    ...mapActions(['getPokemons']),
     clickDetail () {
         // this.loading = true
         // if (data) {
@@ -81,7 +81,7 @@ export default {
 
   },
   computed: {
-    ...mapState(['pokemons', 'region']),
+    ...mapState(['pokemons']),
     // async pokeFilter (data) {
     //   this.searchPoke = await data
     //   return this.pokemons.filter(poke => {
@@ -95,9 +95,8 @@ export default {
       })
     },
     pokeRegion () {
-      return this.pokemons.filter(poke => {
-        return poke === poke.region
-      })
+      return this.pokemons.find(poke => 
+        poke.region === 'kanto')
     }
   },
   created() {
