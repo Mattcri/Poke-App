@@ -4,7 +4,10 @@
       <grid-loader :loading="spinner" class="spinner__element" :color="'#68d391'" :size="60" />
     </div>
 
-    <!-- <cp-search v-if="!spinner" @filtered="pokeFilter" class="mt-5" /> -->
+    <!-- <cp-search v-if="!spinner" @filtered="search=$event" class="mt-5" />
+    <h2>hola:{{search}}</h2> -->
+    <h2>{{ pokeRegion }}</h2>
+   
     <v-row v-if="!spinner">
       <v-col cols="12" md="9">
         <v-text-field
@@ -22,15 +25,7 @@
     <v-row v-if="!spinner">
       <v-col cols="12" md="3" lg="4" v-for="(pokemon, index) in pokeFilter" :key="index">
 
-        <v-card :loading="loading" outlined shaped class="mx-auto px-3" :max-width="270" >
-          <template slot="progress">
-            <v-progress-linear
-              color="deep-purple"
-              height="10"
-              indeterminate
-            ></v-progress-linear>
-          </template>
-
+        <v-card outlined shaped class="mx-auto px-3" :max-width="270" >
           <v-img
             height="230"
             class="blue-grey lighten-5 rounded-circle mt-4"
@@ -45,8 +40,8 @@
           <v-divider class="mx-4 mb-3"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail(index)">
-              Reserve
+            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail()">
+              Detalles
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -64,18 +59,14 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'PokeList',
   // components: { CpSearch },
-  // props: {
-  //   search: ''
-  // }
   data: () => ({
-    loading: false,
     spinner: false,
     search: '',
     pokeImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
   }),
   methods: {
-    ...mapActions(['getPokemons']),
-    clickDetail (data) {
+    ...mapActions(['getPokemons', 'region']),
+    clickDetail () {
         // this.loading = true
         // if (data) {
         //   setTimeout(() => {
@@ -90,7 +81,7 @@ export default {
 
   },
   computed: {
-    ...mapState(['pokemons']),
+    ...mapState(['pokemons', 'region']),
     // async pokeFilter (data) {
     //   this.searchPoke = await data
     //   return this.pokemons.filter(poke => {
@@ -102,6 +93,11 @@ export default {
         return poke.name.toLowerCase().includes(this.search.toLowerCase()) ||
                poke.id.includes(this.search)
       })
+    },
+    pokeRegion () {
+      return this.pokemons.filter(poke => {
+        return poke === poke.region
+      })
     }
   },
   created() {
@@ -109,7 +105,7 @@ export default {
     setTimeout(() => {
       this.getPokemons().finally(() => this.spinner = false)
     }, 1500)
-  }
+  },
 };
 </script>
 
