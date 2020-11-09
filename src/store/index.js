@@ -10,19 +10,23 @@ const API = 'https://pokeapi.co/api/v2/generation/1/'
 export default new Vuex.Store({
   state: {
     pokemons: [],
-    region: ''
+    pokemonDetail: [],
+    region: null
   },
   mutations: {
-    GET_POKEMONS (state) {
-      state.pokemons
+    GET_POKEMONS (state, pokemons) {
+      state.pokemons = pokemons
     },
     REGION (state, region) {
       state.region = region
+    },
+    DETAIL_POKEMON (state, detail) {
+      state.pokemonDetail = detail
     }
     
   },
   actions: {
-    getPokemons ({commit, state}) {
+    getPokemons ({commit}) {
       return fetch(API)
         .then( res => {
           if(res.status === 200)
@@ -30,28 +34,41 @@ export default new Vuex.Store({
         })
         .then( data => {
           let region = data.main_region.name
-          data.pokemon_species.forEach(pokemon => {
-            pokemon.region = region
-            pokemon.id = pokemon.url.split('/')
-              .filter(part => {return !!part}).pop()
-            state.pokemons.push(pokemon)
-          })
-          commit('GET_POKEMONS')
+          // acción payload que evita traer nuevamente la misma data al llamar la función
+          commit('GET_POKEMONS',
+            data.pokemon_species.map(pokemon => {
+              pokemon.region = region
+              pokemon.id = pokemon.url.split('/')
+                .filter(part => {return !!part}).pop()
+              return pokemon // retorna los elementos del mapeo con la nueva data
+            })
+          )
+          
         })
         .catch( error => console.log(error) )
     },
-    region({ commit }) {
-      return fetch(API)
-        .then(res => {
-          if(res.status === 200)
-            return res.json()
-        })
-        .then(data => {
-          let reg = data.main_region.name
-          commit('REGION', reg)
-        })
-        .catch(rej => console.error(rej))
+    async nameRegion ({ commit }) {
+      try {
+        let api = await fetch(API)
+        let res = await api.json()
+        let data = await commit('REGION', res.main_region.name)
+        return data
+      } catch (rej) {
+        console.error(rej)
+      }
+    },
+    async detailPokemon ({ commit }, idPoke) {
+      try {
+        let api = await fetch(`https://pokeapi.co/api/v2/pokemon/${idPoke}/`)
+        let res = await api.json()
+        let data = await commit('DETAIL_POKEMON', res)
+        return data
+      } catch (rej) {
+        console.error(rej)
+      }
+      console.log(data)
     }
+    
     
   },
   modules: {

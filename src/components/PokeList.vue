@@ -6,10 +6,10 @@
 
     <!-- <cp-search v-if="!spinner" @filtered="search=$event" class="mt-5" />
     <h2>hola:{{search}}</h2> -->
-    <h2 v-if="!spinner" :class="'capitalize'">{{ pokeRegion.region }}</h2>
+    <h2 v-if="!spinner" :class="'capitalize'">{{ region }}</h2>
    
-    <v-row v-if="!spinner">
-      <v-col cols="12" md="9">
+    <v-row v-if="!spinner" class="d-flex justify-center">
+      <v-col cols="12" md="10" >
         <v-text-field
           v-model="search"
           label="Búsca tu Pokémon"
@@ -17,6 +17,7 @@
           filled
           rounded
           dense
+          
         >
         </v-text-field>
       </v-col>
@@ -40,7 +41,7 @@
           <v-divider class="mx-4 mb-3"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail()">
+            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail(pokemon.name, pokemon.id)">
               Detalles
             </v-btn>
           </v-card-actions>
@@ -53,57 +54,42 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState ,mapActions } from 'vuex'
 // import CpSearch from '@/components/CpSearch.vue'
 
 export default {
   name: 'PokeList',
   // components: { CpSearch },
   data: () => ({
-    spinner: false,
     search: '',
     pokeImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
   }),
+  props: {
+    spinner: Boolean,
+    pokemons: Array
+  },
   methods: {
-    ...mapActions(['getPokemons']),
-    clickDetail () {
-        // this.loading = true
-        // if (data) {
-        //   setTimeout(() => {
-        //     this.loading = false
-        //     //llevar a ruta
-        //   }, 2000)
-
-        //   console.log(data)
-        // }
+    ...mapActions(['getPokemons', 'nameRegion', 'detailPokemon']),
+    clickDetail (name, id) {
+      console.log(name);
+      console.log(id);
+      this.detailPokemon(id)
+      console.log(this.detailPokemon(id));
       
     },
 
   },
   computed: {
-    ...mapState(['pokemons']),
-    // async pokeFilter (data) {
-    //   this.searchPoke = await data
-    //   return this.pokemons.filter(poke => {
-    //     return poke.results.name.toLowerCase().includes(this.searchPoke.toLowerCase())
-    //   })
-    // }
+    ...mapState(['region']),
     pokeFilter () {
       return this.pokemons.filter(poke => {
         return poke.name.toLowerCase().includes(this.search.toLowerCase()) ||
                poke.id.includes(this.search)
       })
     },
-    pokeRegion () {
-      return this.pokemons.find(poke => 
-        poke.region === 'kanto')
-    }
   },
-  created() {
-    this.spinner = true
-    setTimeout(() => {
-      this.getPokemons().finally(() => this.spinner = false)
-    }, 1500)
+  mounted () {
+    this.nameRegion()
   },
 };
 </script>
