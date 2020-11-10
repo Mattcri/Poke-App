@@ -70,12 +70,11 @@ export default {
   },
   methods: {
     ...mapActions(['getPokemons', 'nameRegion', 'detailPokemon']),
-    clickDetail (name, id) {
-      console.log(name);
+    clickDetail (pokemon, id) {
+      console.log(pokemon);
       console.log(id);
       this.detailPokemon(id)
-      console.log(this.detailPokemon(id));
-      
+      this.$router.push({ name: 'PokeDetail', params: {pokemon} })
     },
 
   },

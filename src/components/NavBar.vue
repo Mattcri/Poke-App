@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="indigo--text " />
       <v-container>
         <!-- <v-toolbar-items> -->
-          <v-img src="../assets/pokemon.svg" width="130px" height="65px" contain transition="scale-transition" />
+          <v-img src="../assets/pokemon.svg" width="130px" height="65px" contain transition="scale-transition" @click.stop="goHome" :class="'pointer'" />
         <!-- </v-toolbar-items> -->
       </v-container>
     </v-app-bar>
@@ -54,11 +54,19 @@ export default {
       { text: 'Generación H', icon: 'mdi-pokeball', route: '/poke' }
     ]
 
-  })
+  }),
+  methods: {
+    goHome () {
+      this.$router.push({ name: 'Home' })
+    }
+  }
 }
 </script>
 
 <style>
+  .pointer {
+    cursor: pointer;
+  }
   /* .nav {
     height: 100px;
   }  */

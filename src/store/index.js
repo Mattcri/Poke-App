@@ -10,7 +10,7 @@ const API = 'https://pokeapi.co/api/v2/generation/1/'
 export default new Vuex.Store({
   state: {
     pokemons: [],
-    pokemonDetail: [],
+    pokemonDetail: {},
     region: null
   },
   mutations: {
@@ -66,7 +66,6 @@ export default new Vuex.Store({
       } catch (rej) {
         console.error(rej)
       }
-      console.log(data)
     }
     
     
