@@ -3,9 +3,7 @@
     <v-app-bar app height="70px">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="indigo--text " />
       <v-container>
-        <!-- <v-toolbar-items> -->
           <v-img src="../assets/pokemon.svg" width="130px" height="65px" contain transition="scale-transition" @click.stop="goHome" :class="'pointer'" />
-        <!-- </v-toolbar-items> -->
       </v-container>
     </v-app-bar>
 

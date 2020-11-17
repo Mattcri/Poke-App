@@ -1,32 +1,20 @@
 <template>
-  <v-simple-table >
-    <template v-slot:default >
-      <thead>
-        <tr >
-          <th class="text-left">
-            HP
+  <v-simple-table class="blue-grey lighten-4 rounded-xl">
+    <template v-slot:default  >
+      <thead >
+        <tr>
+          <th class="text-left purple--text lighten-1 ">
+            Nombre
           </th>
-          <th class="text-left">
-            Attack
-          </th>
-          <th class="text-left">
-            Defense
-          </th>
-          <th class="text-left">
-            Special-attack
-          </th>
-          <th class="text-left">
-            Special-defense
-          </th>
-          <th class="text-left">
-            Speed
+          <th class="text-left purple--text lighten-1 ">
+            Resistencia
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in stats" :key="index">
-          <td>{{ item.base_stats }}</td>
-          <!-- <td>{{ item.calories }}</td> -->
+        <tr v-for="item in stats" :key="item.stat.name">
+          <td class="blue--text darken-1" :class="'capitalize'">{{ item.stat.name }}</td>
+          <td class="blue--text darken-1">{{ item.base_stat }}</td>
         </tr>
       </tbody>
     </template>
@@ -44,6 +32,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.capitalize {
+  text-transform: capitalize;
+}
 
 </style>
+
