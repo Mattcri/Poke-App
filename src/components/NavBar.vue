@@ -21,10 +21,19 @@
         v-model="selectedItem"
         color="primary"
       >
+        <v-list-item to='/'>
+          <v-list-item-icon>
+            <v-icon v-text="'mdi-nintendo-game-boy'"></v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="'Home'"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item
           v-for="(link, i) in links"
           :key="i"
-          router :to="link.route"
+          router :to="{ name: 'GenerationsViews', params: {generation: link.route} }"
         >
           <v-list-item-icon>
             <v-icon v-text="link.icon"></v-icon>
@@ -47,9 +56,13 @@ export default {
     drawer: null,
     selectedItem: 1,
     links: [
-      { text: 'Home', icon: 'mdi-nintendo-game-boy', route: '/' },
-      { text: 'Generación I', icon: 'mdi-pokeball', route: '/about' },
-      { text: 'Generación H', icon: 'mdi-pokeball', route: '/poke' }
+      { text: 'Generación II', icon: 'mdi-pokemon-go', route: 'generation-ii' },
+      { text: 'Generación III', icon: 'mdi-pokemon-go', route: 'generation-iii' },
+      { text: 'Generación IV', icon: 'mdi-pokemon-go', route: 'generation-iv' },
+      { text: 'Generación v', icon: 'mdi-pokemon-go', route: 'generation-v' },
+      { text: 'Generación VI', icon: 'mdi-pokemon-go', route: 'generation-vi' },
+      { text: 'Generación VII', icon: 'mdi-pokemon-go', route: 'generation-vii' },
+      { text: 'Generación VIII', icon: 'mdi-pokemon-go', route: 'generation-viii' }
     ]
 
   }),

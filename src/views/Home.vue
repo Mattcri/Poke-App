@@ -18,7 +18,7 @@ export default {
     spinner: false
   }),
   methods: {
-    ...mapActions(['getPokemons', 'nameRegion']),
+    ...mapActions(['getPokemons']),
   },
   computed: {
     ...mapState(['pokemons'])

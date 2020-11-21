@@ -22,6 +22,11 @@ const routes = [
     path: '/detail/:pokemon',
     name: 'PokeDetail',
     component: () => import (/* webpackChunkName: "detail" */ '../views/PokeDetail.vue')
+  },
+  {
+    path: '/:generation',
+    name: 'GenerationsViews',
+    component: () => import (/* webpackChunkName: "generations" */ '../views/GenerationsViews.vue')
   }
 ]
 
