@@ -11,7 +11,8 @@ export default new Vuex.Store({
   state: {
     pokemons: [],
     pokemonDetail: {},
-    region: null
+    region: null,
+    generationPokemons: []
   },
   mutations: {
     GET_POKEMONS (state, pokemons) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     DETAIL_POKEMON (state, detail) {
       state.pokemonDetail = detail
+    },
+    GET_GENERATION_POKEMONS (state, generation) {
+      state.generationPokemons = generation
     }
     
   },
@@ -66,7 +70,26 @@ export default new Vuex.Store({
       } catch (rej) {
         console.error(rej)
       }
+    },
+    async getGenerationPokemons ({commit}, idGeneration) {
+      try {
+        let api = await fetch(`https://pokeapi.co/api/v2/generation/${idGeneration}/`)
+        let res = await api.json()
+        let region = await res.main_region.name
+        let data = await commit('GET_GENERATION_POKEMONS', 
+          res.pokemon_species.map(pokemon => {
+            pokemon.region = region
+            pokemon.id = pokemon.url.split('/')
+            .filter(part => {return !!part}).pop()
+            return pokemon
+          })
+        )
+        return data
+      } catch (rej) {
+        console.log(rej)
+      }
     }
+
     
     
   },
