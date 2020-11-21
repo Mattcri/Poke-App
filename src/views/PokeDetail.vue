@@ -1,10 +1,14 @@
 <template>
   <v-container >
+    <div class="spinner" v-show="loading">
+      <clip-loader :loading="loading" class="spinner__element" :color="'#68d391'" :size="60" />
+    </div>
 
-    <h2 :class="'capitalize'" class="my-2">Nombre: {{pokemonDetail.name}}</h2>
-    <v-divider></v-divider>
+    <div v-if="!loading">
+      <h2 :class="'capitalize'" class="my-2">Nombre: {{pokemonDetail.name}}</h2>
+    </div>
 
-    <v-row class="mb-4" v-if="pokemonDetail">
+    <v-row class="mb-4" v-if="!loading">
       <v-col cols="12" md="6" class="d-flex justify-center" >
         <v-img
           height="220"
@@ -15,6 +19,7 @@
           alt="Pokemón"
           transition="fab-transition"
           :class="'shadow'"
+          
         >
         </v-img>
 
@@ -34,19 +39,25 @@
 
       </v-col>
     </v-row>
-    <v-divider></v-divider>
+    <v-divider v-if="!loading"></v-divider>
+    
+    <div v-if="!loading">
+      <h2 :class="'capitalize'" class="my-3">caracteristicas</h2>
+      <p>Altura: <strong class="purple--text lighten-1">{{ pokemonDetail.height }} pulgadas</strong> </p>
+      <p>Peso: <strong class="purple--text lighten-1">{{ pokemonDetail.weight }} libras</strong></p>
+      <v-divider></v-divider>
+    </div>
 
-    <h2 :class="'capitalize'" class="my-3">caracteristicas</h2>
-    <p>Altura: <strong class="purple--text lighten-1">{{ pokemonDetail.height }} pulgadas</strong> </p>
-    <p>Peso: <strong class="purple--text lighten-1">{{ pokemonDetail.weight }} libras</strong></p>
-    <v-divider></v-divider>
+    <div v-if="!loading">
+      <h2 :class="'capitalize'" class="my-2">Habilidades</h2>
+      <list-abilities class="my-3" :abilities="abalitiesMap" />
+      <v-divider></v-divider>
+    </div>
 
-    <h2 :class="'capitalize'" class="my-2">Habilidades</h2>
-    <list-abilities class="my-3" :abilities="abalitiesMap" />
-    <v-divider></v-divider>
-
-    <h2 :class="'capitalize'" class="my-2">estadísticas</h2>
-    <table-stats class="my-7" :stats="statsMap" />
+    <div v-if="!loading">
+      <h2 :class="'capitalize'" class="my-2">estadísticas</h2>
+      <table-stats class="my-7" :stats="statsMap"  />
+    </div>
     
   </v-container>
 </template>
@@ -60,6 +71,9 @@ import ListAbilities from '@/components/ListAbilities.vue'
 export default {
   name: 'PokeDetail',
   components: { TableStats, ListAbilities },
+  data: () => ({
+    loading: false
+  }),
   computed: {
     ...mapState(['pokemonDetail']),
     statsMap () {
@@ -69,19 +83,34 @@ export default {
       return this.pokemonDetail.abilities.map(item => item)
     }
     
+  },
+  methods: {
+    ...mapActions(['detailPokemon'])
+  },
+  created () {
+    const id = this.$route.params.pokemon
+    this.loading = true
+    this.detailPokemon(id).finally(() => this.loading = false)
   }
 
 }
 </script>
 
 <style lang="scss" scoped>
-.capitalize {
+  .capitalize {
     text-transform: capitalize;
     // text-align: center;
     color: #1e88e5;
-}
-.shadow {
-  box-shadow: 0px 2px 3px 3px rgba(0,0,0,0.45)
-}
+  }
+  .shadow {
+    box-shadow: 0px 2px 3px 3px rgba(0,0,0,0.45)
+  }
+  .spinner {
+    height: 75vh;
+    display: flex;
+    &__element {
+      margin: auto;
+    }
+  }
 
 </style>

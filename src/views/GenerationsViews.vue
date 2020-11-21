@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <h3>Estoy en la sección de genereación</h3>
     <generation-list :generation="generationPokemons" :spinner="spinner" />
   </v-container>
 </template>

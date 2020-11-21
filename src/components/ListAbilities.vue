@@ -8,7 +8,7 @@
         <v-icon v-text="'mdi-pokeball'"></v-icon>
       </v-list-item-icon>
       <v-list-item-content>
-        <v-list-item-title v-text="a.ability.name" :class="'capitalize'"></v-list-item-title>
+        <v-list-item-title  :class="'capitalize'" >{{ a.ability.name }}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
   </v-list>

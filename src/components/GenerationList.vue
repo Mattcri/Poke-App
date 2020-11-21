@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <div class="spinner" v-show="spinner">
-      <grid-loader :loading="spinner" class="spinner__element" :color="'#68d391'" :size="60" />
+      <grid-loader :loading="spinner" class="spinner__element" :color="'#1976D2'" :size="60" />
+    </div>
+
+    <div v-if="!spinner">
+      <h2 :class="'capitalize'" class="my-2">Región: {{ dinamicRegion }}</h2>
     </div>
 
     <v-row v-if="!spinner" class="d-flex justify-center">
@@ -61,31 +65,42 @@ export default {
     generation: Array
   },
   methods: {
-    ...mapActions(['detailPokemon']),
+    ...mapActions(['regionNames']),
     clickDetail (pokemon, id) {
       console.log(pokemon);
       console.log(id);
-      this.detailPokemon(id)
       this.$router.push({ name: 'PokeDetail', params: {pokemon} })
+    },
+    getRegions () {
+      const idRegion = this.$route.params.generation
+      this.regionNames(idRegion)
     }
 
   },
   computed: {
+    ...mapState(['dinamicRegion']),
     pokeFilter () {
       return this.generation.filter(poke => {
         return poke.name.toLowerCase().includes(this.search.toLowerCase()) ||
                poke.id.includes(this.search)
       })
     },
+  },
+  mounted () {
+    this.getRegions()
+  },
+  watch: {
+    $route () {
+      this.getRegions()
+    }
   }
-
-
 }
 </script>
 
 <style lang="scss" scoped>
   .capitalize {
     text-transform: capitalize;
+    text-align: center;
   }
   .spinner {
     height: 75vh;

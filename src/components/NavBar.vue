@@ -59,7 +59,7 @@ export default {
       { text: 'Generación II', icon: 'mdi-pokemon-go', route: 'generation-ii' },
       { text: 'Generación III', icon: 'mdi-pokemon-go', route: 'generation-iii' },
       { text: 'Generación IV', icon: 'mdi-pokemon-go', route: 'generation-iv' },
-      { text: 'Generación v', icon: 'mdi-pokemon-go', route: 'generation-v' },
+      { text: 'Generación V', icon: 'mdi-pokemon-go', route: 'generation-v' },
       { text: 'Generación VI', icon: 'mdi-pokemon-go', route: 'generation-vi' },
       { text: 'Generación VII', icon: 'mdi-pokemon-go', route: 'generation-vii' },
       { text: 'Generación VIII', icon: 'mdi-pokemon-go', route: 'generation-viii' }

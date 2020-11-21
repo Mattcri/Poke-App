@@ -1,12 +1,10 @@
 <template>
   <v-container>
     <div class="spinner" v-show="spinner">
-      <grid-loader :loading="spinner" class="spinner__element" :color="'#68d391'" :size="60" />
+      <grid-loader :loading="spinner" class="spinner__element" :color="'#1976D2'" :size="60" />
     </div>
 
-    <!-- <cp-search v-if="!spinner" @filtered="search=$event" class="mt-5" />
-    <h2>hola:{{search}}</h2> -->
-    <h2 v-if="!spinner" :class="'capitalize'">{{ region }}</h2>
+    <h2 v-if="!spinner" :class="'capitalize'">Región: {{ region }}</h2>
    
     <v-row v-if="!spinner" class="d-flex justify-center">
       <v-col cols="12" md="10" >
@@ -41,7 +39,7 @@
           <v-divider class="mx-4 mb-3"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail(pokemon.name, pokemon.id)">
+            <v-btn color="deep-purple lighten-2" class="mx-auto white--text px-4"  @click="clickDetail(pokemon.name, pokemon.id)">
               Detalles
             </v-btn>
           </v-card-actions>
@@ -96,6 +94,7 @@ export default {
 <style lang="scss" scoped>
   .capitalize {
     text-transform: capitalize;
+    text-align: center;
   }
   .spinner {
     height: 75vh;
