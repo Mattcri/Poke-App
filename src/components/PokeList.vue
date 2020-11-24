@@ -4,14 +4,14 @@
       <grid-loader :loading="spinner" class="spinner__element" :color="'#1976D2'" :size="60" />
     </div>
 
-    <h2 v-if="!spinner" :class="'capitalize'">Región: {{ region }}</h2>
+    <h2 v-if="!spinner" :class="'capitalize'" class="my-3">Región: {{ region }}</h2>
    
     <v-row v-if="!spinner" class="d-flex justify-center">
       <v-col cols="12" md="10" >
         <v-text-field
           v-model="search"
           label="Búsca tu Pokémon"
-          placeholder="Pikachu & 5"
+          placeholder="Buscar en generación"
           filled
           rounded
           dense

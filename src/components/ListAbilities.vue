@@ -5,7 +5,7 @@
       :key="a.ability.name"
     >
       <v-list-item-icon>
-        <v-icon v-text="'mdi-pokeball'"></v-icon>
+        <v-icon class="blue--text darken-1" v-text="'mdi-pokeball'"></v-icon>
       </v-list-item-icon>
       <v-list-item-content>
         <v-list-item-title  :class="'capitalize'" >{{ a.ability.name }}</v-list-item-title>

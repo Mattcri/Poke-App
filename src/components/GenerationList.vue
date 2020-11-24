@@ -5,7 +5,7 @@
     </div>
 
     <div v-if="!spinner">
-      <h2 :class="'capitalize'" class="my-2">Región: {{ dinamicRegion }}</h2>
+      <h2 :class="'capitalize'" class="my-3">Región: {{ dinamicRegion }}</h2>
     </div>
 
     <v-row v-if="!spinner" class="d-flex justify-center">
@@ -13,7 +13,7 @@
         <v-text-field
           v-model="search"
           label="Búsca tu Pokémon"
-          placeholder="Pikachu & 5"
+          placeholder="Buscar en generación"
           filled
           rounded
           dense

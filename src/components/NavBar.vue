@@ -1,16 +1,20 @@
 <template>
   <nav>
-    <v-app-bar app height="70px">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="indigo--text " />
-      <v-container>
+    <v-app-bar app height="70px" >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="deep-purple--text lighten-2" />
+      <v-container class="d-flex">
           <v-img src="../assets/pokemon.svg" width="130px" height="65px" contain transition="scale-transition" @click.stop="goHome" :class="'pointer'" />
+          
       </v-container>
+      <a href="https://github.com/Mattcri/Poke-App" target="_blank">
+        <v-img contain src="@/assets/github.svg" max-width="30"></v-img>
+      </a>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app temporary color="grey lighten-3">
-      <v-list-item>
+      <v-list-item class="d-flex justify-center">
         <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          <v-img src="@/assets/pokemon-13.svg" contain></v-img>
         </v-list-item-avatar>
       </v-list-item>
       <v-divider />

@@ -39,23 +39,24 @@
 
       </v-col>
     </v-row>
-    <v-divider v-if="!loading"></v-divider>
+    <v-divider v-if="!loading" class="mt-7"></v-divider>
     
     <div v-if="!loading">
-      <h2 :class="'capitalize'" class="my-3">caracteristicas</h2>
+      <h2 :class="'capitalize'" class="my-5">caracteristicas</h2>
       <p>Altura: <strong class="purple--text lighten-1">{{ pokemonDetail.height }} pulgadas</strong> </p>
       <p>Peso: <strong class="purple--text lighten-1">{{ pokemonDetail.weight }} libras</strong></p>
-      <v-divider></v-divider>
+      <p>Tipo: <strong :class="'capitalize'" class="purple--text lighten-1">{{ typeMap[0].type.name }}</strong></p>
+      <v-divider class="mt-6"></v-divider>
     </div>
 
     <div v-if="!loading">
-      <h2 :class="'capitalize'" class="my-2">Habilidades</h2>
+      <h2 :class="'capitalize'" class="mt-5">Habilidades</h2>
       <list-abilities class="my-3" :abilities="abalitiesMap" />
-      <v-divider></v-divider>
+      <v-divider class="mt-4"></v-divider>
     </div>
 
     <div v-if="!loading">
-      <h2 :class="'capitalize'" class="my-2">estadísticas</h2>
+      <h2 :class="'capitalize'" class="my-5">estadísticas</h2>
       <table-stats class="my-7" :stats="statsMap"  />
     </div>
     
@@ -81,6 +82,9 @@ export default {
     },
     abalitiesMap () {
       return this.pokemonDetail.abilities.map(item => item)
+    },
+    typeMap () {
+      return this.pokemonDetail.types.map(item => item)
     }
     
   },
@@ -99,8 +103,10 @@ export default {
 <style lang="scss" scoped>
   .capitalize {
     text-transform: capitalize;
-    // text-align: center;
-    color: #1e88e5;
+    @media only screen and (max-width: 586px) {
+      text-align: center;
+    }
+    // color: #1e88e5;
   }
   .shadow {
     box-shadow: 0px 2px 3px 3px rgba(0,0,0,0.45)
