@@ -40,7 +40,7 @@
           <v-divider class="mx-4 mb-3"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail(pokemon.name, pokemon.id)">
+            <v-btn color="deep-purple lighten-2" class="mx-auto white--text"  @click="clickDetail(pokemon.name)">
               Detalles
             </v-btn>
           </v-card-actions>
@@ -66,9 +66,7 @@ export default {
   },
   methods: {
     ...mapActions(['regionNames']),
-    clickDetail (pokemon, id) {
-      console.log(pokemon);
-      console.log(id);
+    clickDetail (pokemon) {
       this.$router.push({ name: 'PokeDetail', params: {pokemon} })
     },
     getRegions () {

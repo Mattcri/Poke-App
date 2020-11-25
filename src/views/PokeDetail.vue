@@ -30,7 +30,7 @@
           max-width="200"
           class="blue-grey lighten-4 rounded-circle mt-4"
           contain
-          :src="pokemonDetail.sprites.back_default"
+          :src="pokemonDetail.sprites.back_default ? pokemonDetail.sprites.back_default : ImageNotFound"
           alt="Pokemón"
           transition="fab-transition"
           :class="'shadow'"
@@ -73,7 +73,8 @@ export default {
   name: 'PokeDetail',
   components: { TableStats, ListAbilities },
   data: () => ({
-    loading: false
+    loading: false,
+    ImageNotFound: 'https://bitsofco.de/content/images/2018/12/broken-1.png'
   }),
   computed: {
     ...mapState(['pokemonDetail']),

@@ -39,7 +39,7 @@
           <v-divider class="mx-4 mb-3"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" class="mx-auto white--text px-4"  @click="clickDetail(pokemon.name, pokemon.id)">
+            <v-btn color="deep-purple lighten-2" class="mx-auto white--text px-4"  @click="clickDetail(pokemon.name)">
               Detalles
             </v-btn>
           </v-card-actions>
@@ -53,11 +53,9 @@
 
 <script>
 import { mapState ,mapActions } from 'vuex'
-// import CpSearch from '@/components/CpSearch.vue'
 
 export default {
   name: 'PokeList',
-  // components: { CpSearch },
   data: () => ({
     search: '',
     pokeImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
@@ -68,10 +66,7 @@ export default {
   },
   methods: {
     ...mapActions(['getPokemons', 'nameRegion', 'detailPokemon']),
-    clickDetail (pokemon, id) {
-      console.log(pokemon);
-      console.log(id);
-      this.detailPokemon(id)
+    clickDetail (pokemon) {
       this.$router.push({ name: 'PokeDetail', params: {pokemon} })
     },
 
