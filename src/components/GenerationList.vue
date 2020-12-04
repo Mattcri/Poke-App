@@ -23,7 +23,7 @@
     </v-row>
 
     <v-row v-if="!spinner">
-      <v-col cols="12" md="3" lg="4" v-for="(pokemon, index) in pokeFilter" :key="index">
+      <v-col cols="12" sm="6" md="6" lg="4" v-for="(pokemon, index) in pokeFilter" :key="index">
 
         <v-card outlined shaped class="mx-auto px-3" :max-width="270" >
           <v-img
